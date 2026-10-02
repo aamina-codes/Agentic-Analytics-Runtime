@@ -1,0 +1,128 @@
+{
+  "q01": {
+    "answer": "North America",
+    "value": 13669971.27,
+    "metric": "total_sales"
+  },
+  "q02": {
+    "answer": "Technology",
+    "value": 2039511.94,
+    "metric": "total_profit"
+  },
+  "q03": {
+    "answer": "Corporate",
+    "value": 900.36,
+    "metric": "average_sales"
+  },
+  "q04": {
+    "answer": 18173443.65,
+    "metric": "total_sales_2024"
+  },
+  "q05": {
+    "answer": 17948110.75,
+    "metric": "total_sales_2025"
+  },
+  "q06": {
+    "absolute_change": -225332.9,
+    "percentage_change": -1.2399,
+    "from_year": 2024,
+    "to_year": 2025
+  },
+  "q07": {
+    "answer": "North America",
+    "value": 667.64,
+    "metric": "average_sales"
+  },
+  "q08": {
+    "answer": 3131635.19,
+    "metric": "completed_order_profit"
+  },
+  "q09": {
+    "answer": "Technology",
+    "value": 109.73,
+    "metric": "average_profit"
+  },
+  "q10": {
+    "cancelled_orders": 2814,
+    "total_orders": 60000,
+    "percentage": 4.69
+  },
+  "q11": {
+    "answer": "Credit Card",
+    "order_count": 18586
+  },
+  "q12": {
+    "answer": "Canada",
+    "value": 6919700.97,
+    "metric": "total_sales"
+  },
+  "q13": {
+    "rows": [
+      {
+        "region": "North America",
+        "total_sales": 13669971.27,
+        "total_profit": 1371045.75
+      },
+      {
+        "region": "Europe",
+        "total_sales": 10700974.13,
+        "total_profit": 1029661.95
+      },
+      {
+        "region": "Asia Pacific",
+        "total_sales": 8265143.74,
+        "total_profit": 755159.13
+      },
+      {
+        "region": "Latin America",
+        "total_sales": 3485465.26,
+        "total_profit": 292508.23
+      }
+    ]
+  },
+  "q14": {
+    "answer": "Corporate",
+    "value": 1529043.52,
+    "metric": "total_profit"
+  },
+  "q15": {
+    "answer": "Technology",
+    "value": 18734187.9,
+    "metric": "completed_order_sales"
+  },
+  "q16": {
+    "answer": "North America",
+    "profit_margin": 10.0296
+  },
+  "q17": {
+    "segment_1": "Corporate",
+    "segment_1_total_sales": 14637200.44,
+    "segment_2": "Home Office",
+    "segment_2_total_sales": 5428266.81,
+    "difference": 9208933.63
+  },
+  "q18": {
+    "category": "Furniture",
+    "average_discount": 0.1301,
+    "average_profit": 52.81
+  },
+  "q19": {
+    "rows": [
+      {
+        "year": 2024,
+        "region": "North America",
+        "sales": 6834708.92
+      },
+      {
+        "year": 2025,
+        "region": "North America",
+        "sales": 6835262.35
+      }
+    ]
+  },
+  "q20": {
+    "answer": "Furniture",
+    "value": 5009.46,
+    "metric": "profit_with_discount_at_least_20_percent"
+  }
+}

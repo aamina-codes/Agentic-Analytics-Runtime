@@ -1,0 +1,435 @@
+{
+  "summary": {
+    "total_questions": 20,
+    "passed": 20,
+    "failed": 0,
+    "accuracy": 100.0
+  },
+  "results": [
+    {
+      "question_id": "q01",
+      "question": "Which region generated the highest total sales?",
+      "expected_result": {
+        "answer": "North America",
+        "value": 13669971.27,
+        "metric": "total_sales"
+      },
+      "status": "PASS",
+      "answer": "North America generated the highest total sales, with $13,669,971.27.",
+      "sql": "SELECT\n    region, SUM(sales) AS sum_sales\nFROM ecommerce_orders\nGROUP BY region\nORDER BY sum_sales DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "region": "North America",
+          "sum_sales": 13669971.270000065
+        }
+      ],
+      "comparison": "Ranking result matches."
+    },
+    {
+      "question_id": "q02",
+      "question": "Which product category generated the highest total profit?",
+      "expected_result": {
+        "answer": "Technology",
+        "value": 2039511.94,
+        "metric": "total_profit"
+      },
+      "status": "PASS",
+      "answer": "Technology generated the highest total profit, with $2,039,511.94.",
+      "sql": "SELECT\n    category, SUM(profit) AS sum_profit\nFROM ecommerce_orders\nGROUP BY category\nORDER BY sum_profit DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "category": "Technology",
+          "sum_profit": 2039511.9399999985
+        }
+      ],
+      "comparison": "Ranking result matches."
+    },
+    {
+      "question_id": "q03",
+      "question": "Which customer segment has the highest average sales per order?",
+      "expected_result": {
+        "answer": "Corporate",
+        "value": 900.36,
+        "metric": "average_sales"
+      },
+      "status": "PASS",
+      "answer": "Corporate generated the highest average sales, with $900.36.",
+      "sql": "SELECT\n    customer_segment, AVG(sales) AS avg_sales\nFROM ecommerce_orders\nGROUP BY customer_segment\nORDER BY avg_sales DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "customer_segment": "Corporate",
+          "avg_sales": 900.3629476533192
+        }
+      ],
+      "comparison": "Ranking result matches."
+    },
+    {
+      "question_id": "q04",
+      "question": "What was the total sales revenue in 2024?",
+      "expected_result": {
+        "answer": 18173443.65,
+        "metric": "total_sales_2024"
+      },
+      "status": "PASS",
+      "answer": "The total sales is $18,173,443.65.",
+      "sql": "SELECT\n    SUM(sales) AS sum_sales\nFROM ecommerce_orders\nWHERE EXTRACT(YEAR FROM order_date) = 2024;",
+      "actual_result": [
+        {
+          "sum_sales": 18173443.649999928
+        }
+      ],
+      "comparison": "Numeric result matches."
+    },
+    {
+      "question_id": "q05",
+      "question": "What was the total sales revenue in 2025?",
+      "expected_result": {
+        "answer": 17948110.75,
+        "metric": "total_sales_2025"
+      },
+      "status": "PASS",
+      "answer": "The total sales is $17,948,110.75.",
+      "sql": "SELECT\n    SUM(sales) AS sum_sales\nFROM ecommerce_orders\nWHERE EXTRACT(YEAR FROM order_date) = 2025;",
+      "actual_result": [
+        {
+          "sum_sales": 17948110.75
+        }
+      ],
+      "comparison": "Numeric result matches."
+    },
+    {
+      "question_id": "q06",
+      "question": "How much did sales change between 2024 and 2025?",
+      "expected_result": {
+        "absolute_change": -225332.9,
+        "percentage_change": -1.2399,
+        "from_year": 2024,
+        "to_year": 2025
+      },
+      "status": "PASS",
+      "answer": "The query returned: sum_sales_2024 = 18,173,443.65, sum_sales_2025 = 17,948,110.75, change = -225,332.90.",
+      "sql": "WITH yearly_values AS (\n    SELECT\n        EXTRACT(YEAR FROM order_date) AS year,\n        SUM(sales) AS value\n    FROM ecommerce_orders\n    WHERE EXTRACT(YEAR FROM order_date)\n        IN (2024, 2025)\n    GROUP BY year\n)\nSELECT\n    MAX(\n        CASE\n            WHEN year = 2024\n            THEN value\n        END\n    ) AS sum_sales_2024,\n    MAX(\n        CASE\n            WHEN year = 2025\n            THEN value\n        END\n    ) AS sum_sales_2025,\n    MAX(\n        CASE\n            WHEN year = 2025\n            THEN value\n        END\n    )\n    -\n    MAX(\n        CASE\n            WHEN year = 2024\n            THEN value\n        END\n    ) AS change\nFROM yearly_values;",
+      "actual_result": [
+        {
+          "sum_sales_2024": 18173443.649999928,
+          "sum_sales_2025": 17948110.75,
+          "change": -225332.89999992773
+        }
+      ],
+      "comparison": "Absolute year-over-year change matches."
+    },
+    {
+      "question_id": "q07",
+      "question": "Which region had the highest average sales per order?",
+      "expected_result": {
+        "answer": "North America",
+        "value": 667.64,
+        "metric": "average_sales"
+      },
+      "status": "PASS",
+      "answer": "North America generated the highest average sales, with $667.64.",
+      "sql": "SELECT\n    region, AVG(sales) AS avg_sales\nFROM ecommerce_orders\nGROUP BY region\nORDER BY avg_sales DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "region": "North America",
+          "avg_sales": 667.6420644688676
+        }
+      ],
+      "comparison": "Ranking result matches."
+    },
+    {
+      "question_id": "q08",
+      "question": "What is the total profit generated by completed orders?",
+      "expected_result": {
+        "answer": 3131635.19,
+        "metric": "completed_order_profit"
+      },
+      "status": "PASS",
+      "answer": "The total profit is $3,131,635.19.",
+      "sql": "SELECT\n    SUM(profit) AS sum_profit\nFROM ecommerce_orders\nWHERE order_status = 'Completed';",
+      "actual_result": [
+        {
+          "sum_profit": 3131635.1900000153
+        }
+      ],
+      "comparison": "Numeric result matches."
+    },
+    {
+      "question_id": "q09",
+      "question": "Which category has the highest average profit per order?",
+      "expected_result": {
+        "answer": "Technology",
+        "value": 109.73,
+        "metric": "average_profit"
+      },
+      "status": "PASS",
+      "answer": "Technology generated the highest average profit, with $109.73.",
+      "sql": "SELECT\n    category, AVG(profit) AS avg_profit\nFROM ecommerce_orders\nGROUP BY category\nORDER BY avg_profit DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "category": "Technology",
+          "avg_profit": 109.72787109269912
+        }
+      ],
+      "comparison": "Ranking result matches."
+    },
+    {
+      "question_id": "q10",
+      "question": "What percentage of all orders were cancelled?",
+      "expected_result": {
+        "cancelled_orders": 2814,
+        "total_orders": 60000,
+        "percentage": 4.69
+      },
+      "status": "PASS",
+      "answer": "The result is 4.69%.",
+      "sql": "SELECT\n    ROUND(\n        100.0 *\n        (\n            SELECT COUNT(*)\n            FROM ecommerce_orders\n            WHERE order_status = 'Cancelled'\n        )\n        /\n        NULLIF(\n            (\n                SELECT COUNT(*)\n                FROM ecommerce_orders\n                \n            ),\n            0\n        ),\n        2\n    ) AS percentage;",
+      "actual_result": [
+        {
+          "percentage": 4.69
+        }
+      ],
+      "comparison": "Percentage result matches."
+    },
+    {
+      "question_id": "q11",
+      "question": "Which payment method was used for the most orders?",
+      "expected_result": {
+        "answer": "Credit Card",
+        "order_count": 18586
+      },
+      "status": "PASS",
+      "answer": "Credit Card generated the highest count, with 18586.",
+      "sql": "SELECT\n    payment_method,\n    COUNT(*) AS count\nFROM ecommerce_orders\nGROUP BY payment_method\nORDER BY count DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "payment_method": "Credit Card",
+          "count": 18586
+        }
+      ],
+      "comparison": "Ranked payment method and order count match."
+    },
+    {
+      "question_id": "q12",
+      "question": "Which country generated the highest total sales?",
+      "expected_result": {
+        "answer": "Canada",
+        "value": 6919700.97,
+        "metric": "total_sales"
+      },
+      "status": "PASS",
+      "answer": "Canada generated the highest total sales, with $6,919,700.97.",
+      "sql": "SELECT\n    country, SUM(sales) AS sum_sales\nFROM ecommerce_orders\nGROUP BY country\nORDER BY sum_sales DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "country": "Canada",
+          "sum_sales": 6919700.9700000025
+        }
+      ],
+      "comparison": "Ranking result matches."
+    },
+    {
+      "question_id": "q13",
+      "question": "What was the total sales and total profit for each region?",
+      "expected_result": {
+        "rows": [
+          {
+            "region": "North America",
+            "total_sales": 13669971.27,
+            "total_profit": 1371045.75
+          },
+          {
+            "region": "Europe",
+            "total_sales": 10700974.13,
+            "total_profit": 1029661.95
+          },
+          {
+            "region": "Asia Pacific",
+            "total_sales": 8265143.74,
+            "total_profit": 755159.13
+          },
+          {
+            "region": "Latin America",
+            "total_sales": 3485465.26,
+            "total_profit": 292508.23
+          }
+        ]
+      },
+      "status": "PASS",
+      "answer": "The total region is Europe.",
+      "sql": "SELECT\n    region,\n    SUM(sales) AS sum_sales,\n    SUM(profit) AS sum_profit\nFROM ecommerce_orders\nGROUP BY region;",
+      "actual_result": [
+        {
+          "region": "Europe",
+          "sum_sales": 10700974.129999997,
+          "sum_profit": 1029661.9500000039
+        },
+        {
+          "region": "Latin America",
+          "sum_sales": 3485465.259999995,
+          "sum_profit": 292508.2299999995
+        },
+        {
+          "region": "Asia Pacific",
+          "sum_sales": 8265143.739999991,
+          "sum_profit": 755159.1299999999
+        },
+        {
+          "region": "North America",
+          "sum_sales": 13669971.270000065,
+          "sum_profit": 1371045.749999994
+        }
+      ],
+      "comparison": "All expected rows match, independent of row order."
+    },
+    {
+      "question_id": "q14",
+      "question": "Which customer segment generated the most total profit?",
+      "expected_result": {
+        "answer": "Corporate",
+        "value": 1529043.52,
+        "metric": "total_profit"
+      },
+      "status": "PASS",
+      "answer": "Corporate generated the highest total profit, with $1,529,043.52.",
+      "sql": "SELECT\n    customer_segment, SUM(profit) AS sum_profit\nFROM ecommerce_orders\nGROUP BY customer_segment\nORDER BY sum_profit DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "customer_segment": "Corporate",
+          "sum_profit": 1529043.5199999944
+        }
+      ],
+      "comparison": "Ranking result matches."
+    },
+    {
+      "question_id": "q15",
+      "question": "Among completed orders, which category generated the highest total sales?",
+      "expected_result": {
+        "answer": "Technology",
+        "value": 18734187.9,
+        "metric": "completed_order_sales"
+      },
+      "status": "PASS",
+      "answer": "Technology generated the highest total sales, with $18,734,187.90.",
+      "sql": "SELECT\n    category, SUM(sales) AS sum_sales\nFROM ecommerce_orders\nWHERE order_status = 'Completed'\nGROUP BY category\nORDER BY sum_sales DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "category": "Technology",
+          "sum_sales": 18734187.899999995
+        }
+      ],
+      "comparison": "Ranking result matches."
+    },
+    {
+      "question_id": "q16",
+      "question": "Which region had the highest profit margin?",
+      "expected_result": {
+        "answer": "North America",
+        "profit_margin": 10.0296
+      },
+      "status": "PASS",
+      "answer": "North America generated the highest profit margin, with $10.03.",
+      "sql": "SELECT\n    region,\n    100.0 * SUM(profit) / NULLIF(SUM(sales), 0) AS profit_margin\nFROM ecommerce_orders\nGROUP BY region\nORDER BY profit_margin DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "region": "North America",
+          "profit_margin": 10.02961690935571
+        }
+      ],
+      "comparison": "Ranked region and profit margin match."
+    },
+    {
+      "question_id": "q17",
+      "question": "How did total sales differ between the two customer segments with the highest average order value?",
+      "expected_result": {
+        "segment_1": "Corporate",
+        "segment_1_total_sales": 14637200.44,
+        "segment_2": "Home Office",
+        "segment_2_total_sales": 5428266.81,
+        "difference": 9208933.63
+      },
+      "status": "PASS",
+      "answer": "The difference is 9,208,933.63.",
+      "sql": "WITH top_groups AS (\n    SELECT\n        customer_segment\n    FROM ecommerce_orders\n    \n    GROUP BY customer_segment\n    ORDER BY AVG(sales) DESC\n    LIMIT 2\n),\ngroup_totals AS (\n    SELECT\n        customer_segment,\n        SUM(sales) AS total_sales\n    FROM ecommerce_orders\n    WHERE customer_segment IN (\n        SELECT customer_segment\n        FROM top_groups\n    )\n    \n    GROUP BY customer_segment\n)\nSELECT\n    MAX(total_sales) -\n    MIN(total_sales) AS difference\nFROM group_totals;",
+      "actual_result": [
+        {
+          "difference": 9208933.630000014
+        }
+      ],
+      "comparison": "Top-group sales difference matches."
+    },
+    {
+      "question_id": "q18",
+      "question": "Which category had the highest average discount, and what was its average profit?",
+      "expected_result": {
+        "category": "Furniture",
+        "average_discount": 0.1301,
+        "average_profit": 52.81
+      },
+      "status": "PASS",
+      "answer": "Furniture generated the highest average profit, with $52.81.",
+      "sql": "SELECT\n    category,\n    AVG(profit) AS avg_profit,\n    AVG(discount) AS avg_discount\nFROM ecommerce_orders\nGROUP BY category\nORDER BY avg_discount DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "category": "Furniture",
+          "avg_profit": 52.807473515248475,
+          "avg_discount": 0.1301344703049763
+        }
+      ],
+      "comparison": "Category and both average metrics match."
+    },
+    {
+      "question_id": "q19",
+      "question": "For each year, which region generated the most sales?",
+      "expected_result": {
+        "rows": [
+          {
+            "year": 2024,
+            "region": "North America",
+            "sales": 6834708.92
+          },
+          {
+            "year": 2025,
+            "region": "North America",
+            "sales": 6835262.35
+          }
+        ]
+      },
+      "status": "PASS",
+      "answer": "2024 generated the highest region, with North America.",
+      "sql": "WITH yearly_region_sales AS (\n    SELECT\n        EXTRACT(YEAR FROM order_date) AS year,\n        region,\n        SUM(sales) AS total_sales\n    FROM ecommerce_orders\n    \n    GROUP BY\n        year,\n        region\n),\nranked AS (\n    SELECT\n        year,\n        region,\n        total_sales,\n        ROW_NUMBER() OVER (\n            PARTITION BY year\n            ORDER BY total_sales DESC\n        ) AS rank\n    FROM yearly_region_sales\n)\nSELECT\n    year,\n    region,\n    total_sales\nFROM ranked\nWHERE rank = 1\nORDER BY year;",
+      "actual_result": [
+        {
+          "year": 2024,
+          "region": "North America",
+          "total_sales": 6834708.920000011
+        },
+        {
+          "year": 2025,
+          "region": "North America",
+          "total_sales": 6835262.350000005
+        }
+      ],
+      "comparison": "All expected rows match, independent of row order."
+    },
+    {
+      "question_id": "q20",
+      "question": "Among orders with a discount of at least 20%, which category generated the most profit?",
+      "expected_result": {
+        "answer": "Furniture",
+        "value": 5009.46,
+        "metric": "profit_with_discount_at_least_20_percent"
+      },
+      "status": "PASS",
+      "answer": "Furniture generated the highest total profit, with $5,009.46.",
+      "sql": "SELECT\n    category, SUM(profit) AS sum_profit\nFROM ecommerce_orders\nWHERE discount >= 0.2\nGROUP BY category\nORDER BY sum_profit DESC\nLIMIT 1;",
+      "actual_result": [
+        {
+          "category": "Furniture",
+          "sum_profit": 5009.460000000001
+        }
+      ],
+      "comparison": "Ranking result matches."
+    }
+  ]
+}
